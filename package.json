@@ -1,7 +1,7 @@
 {
   "name": "discord-bot",
-  "version": "1.0.0",
-  "description": "",
+  "version": "0.0.1",
+  "description": "SpaceBot is a Discord bot game built using discord.js. It centers around gathering materials to create new tools which you then use to find and collect various aliens.",
   "main": "main.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -13,5 +13,9 @@
     "dotenv": "^10.0.0",
     "fs": "0.0.1-security",
     "mongoose": "^6.0.9"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/WolferTamer/SpaceBot"
   }
 }
