@@ -1,0 +1,35 @@
+{
+    "spots" : [
+        {
+            "name" : "Meteor",
+            "chance" : 0.5,
+            "image" : "link",
+            "modifiers" : {
+                "asteroid":1,
+                "meteor": 1.2,
+                "star" : 1
+            },
+            "description": "You travel to a nearby meteor and harvest: \n"
+        }, {
+            "name" : "Asteroid",
+            "chance" : 0.5,
+            "image" : "link",
+            "modifiers" : {
+                "asteroid":1.2,
+                "meteor": 1,
+                "star" : 1
+            },
+            "description": "You navigate through the asteroid belt and fetch: \n"
+        }, {
+            "name" : "Star",
+            "chance" : 0.5,
+            "image" : "link",
+            "modifiers" : {
+                "asteroid":1,
+                "meteor": 1,
+                "star" : 1.2
+            },
+            "description": "You withstand the brutal heat of a star to find: \n"
+        }
+    ]
+}

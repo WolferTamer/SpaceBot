@@ -1,0 +1,68 @@
+{
+    "resources" : [
+        {
+            "name" : "Meteor Rock",
+            "id" : "mRock",
+            "chance" : 0.5,
+            "rarity" : "normal",
+            "image" : "link",
+            "category" : "meteor"
+        }, {
+            "name" : "Asteroid Iron",
+            "id" : "aIron",
+            "chance" : 0.5,
+            "rarity" : "uncommon",
+            "image" : "link",
+            "category" : "asteroid"
+        }, {
+            "name" : "Yellow Star Dust",
+            "id" : "yStarDust",
+            "chance" : 0.5,
+            "rarity" : "great",
+            "image" : "link",
+            "category" : "star"
+        }, {
+            "name" : "Orange Star Dust",
+            "id" : "oStarDust",
+            "chance" : 0.5,
+            "rarity" : "uncommon",
+            "image" : "link",
+            "category" : "star"
+        }, {
+            "name" : "Red Star Dust",
+            "id" : "rStarDust",
+            "chance" : 0.5,
+            "rarity" : "normal",
+            "image" : "link",
+            "category" : "star"
+        }, {
+            "name" : "White Star Dust",
+            "id" : "wStarDust",
+            "chance" : 0.5,
+            "rarity" : "rare",
+            "image" : "link",
+            "category" : "star"
+        }, {
+            "name" : "Blue Star Dust",
+            "id" : "bStarDust",
+            "chance" : 0.5,
+            "rarity" : "unique",
+            "image" : "link",
+            "category" : "star"
+        }, {
+            "name" : "Green Star Dust",
+            "id" : "gStarDust",
+            "chance" : 0.5,
+            "rarity" : "epic",
+            "image" : "link",
+            "category" : "star"
+        }, {
+            "name" : "Purple Star Dust",
+            "id" : "pStarDust",
+            "chance" : 0.5,
+            "rarity" : "ultra",
+            "image" : "link",
+            "category" : "star"
+        }
+    ]
+}
