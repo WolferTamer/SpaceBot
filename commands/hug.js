@@ -1,7 +1,7 @@
 module.exports = {
     name: 'hug',
     cooldown: 5,
-    description: "Sends hug",
+    description: "Sends a cat hug gif to someone.",
     usage: ".hug `[user mention]`",
     async execute(client, message, args, Discord) {
         const person = message.guild.member(message.mentions.users.first() || message.guild.members.fetch(args[1]))

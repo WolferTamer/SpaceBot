@@ -4,7 +4,7 @@ module.exports = {
     name: "widthdraw",
     cooldown: 5,
     aliases: ["wd"],
-    description: "Withdraw from your bank",
+    description: "Withdraw money from your bank.",
     usage: ".widthdraw `[amount]`",
     async execute(client, message, args, Discord, profileData) {
         const depoAmount = Number(args[0]);

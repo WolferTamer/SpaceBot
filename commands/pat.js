@@ -1,7 +1,7 @@
 module.exports = {
     name: 'pat',
     cooldown: 5,
-    description: "Sends pat",
+    description: "Sends pat to someone.",
     usage: ".pat `[user mention]`",
     async execute(client, message, args) {
         const person = message.guild.member(message.mentions.users.first() || message.guild.members.fetch(args[1]))

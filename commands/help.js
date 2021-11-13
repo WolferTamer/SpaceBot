@@ -5,7 +5,7 @@ module.exports = {
     name: "help",
     cooldown: 5,
     aliases: ['h'],
-    description: "Get help on various commands",
+    description: "Lists all commands or gives information on a specific command including aliases, description, and usage.",
     usage: ".help `{command name}`",
     async execute(client, message, args, Discord, profileData) {
         const commandFiles = fs.readdirSync('./commands/').filter(file => file.endsWith('.js'));

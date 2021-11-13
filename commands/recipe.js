@@ -9,7 +9,7 @@ module.exports = {
     name: "recipe",
     cooldown: 5,
     aliases: ['r', 'rec'],
-    description: "Check a recipe for an item!",
+    description: "Check a recipe for an item.",
     usage: ".recipe `[item id]`",
     async execute(client, message, args, Discord, profileData) {
         var tool = toolsData["tools"].find(element => element.id === args[0])

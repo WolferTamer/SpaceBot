@@ -4,7 +4,7 @@ module.exports = {
     name: "inventory",
     cooldown: 5,
     aliases: ['inv', 'i'],
-    description: "Check your inventory",
+    description: "Get a list of all the items in your inventory.",
     usage: ".inventory",
     async execute(client, message, args, Discord, profileData) {
         var description = "";

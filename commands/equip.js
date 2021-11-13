@@ -9,7 +9,7 @@ module.exports = {
     name: "equip",
     cooldown: 5,
     aliases: ['r', 'rec'],
-    description: "Equip a tool",
+    description: "Equip a tool that you have crafted.",
     usage: ".equip `[item id]`",
     async execute(client, message, args, Discord, profileData) {
         var tool = toolsData["tools"].find(element => element.id === args[0]);

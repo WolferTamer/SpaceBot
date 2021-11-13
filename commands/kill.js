@@ -1,7 +1,7 @@
 module.exports = {
     name: 'kill',
     cooldown: 5,
-    description: "kills",
+    description: "Kills someone",
     usage: ".kill `{user mention}`",
     async execute(client, message, args) {
         const person = message.guild.member(message.mentions.users.first() || message.guild.members.fetch(args[1]))

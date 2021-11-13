@@ -11,8 +11,8 @@ module.exports = {
     name: "gather",
     cooldown: 20,
     aliases: ['g'],
-    description: "Gather items",
-    usage: ".gather \n`(location choice)`",
+    description: "Choose a location to gather from either by replying with your choice or using ac to automatically choose. Gives various resource items. Can be buffed using tools.",
+    usage: ".gather {ac} \n`(location choice)`",
     async execute(client, message, args, Discord, profileData) {
 
         var locations = [];

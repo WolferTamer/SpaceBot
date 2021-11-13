@@ -8,7 +8,7 @@ const resourceData = JSON.parse(resourceJSON);
 module.exports = {
     name: "item",
     cooldown: 5,
-    description: "Look at an item's stats!",
+    description: "Check an item's information",
     usage: ".item `[item id]`",
     async execute(client, message, args, Discord, profileData) {
         var tool = toolsData["tools"].find(element => element.id === args[0])

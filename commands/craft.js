@@ -8,7 +8,7 @@ const resourceData = JSON.parse(resourceJSON);
 module.exports = {
     name: "craft",
     cooldown: 15,
-    description: "Craft an item!",
+    description: "Craft an item using resources gotten from gathering.",
     usage: ".craft `[item id]`",
     async execute(client, message, args, Discord, profileData) {
         var tool = toolsData["tools"].find(element => element.id === args[0]);
