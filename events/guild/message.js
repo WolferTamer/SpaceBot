@@ -14,30 +14,38 @@ module.exports = async(Discord, client, message) => {
                 userID: message.author.id,
                 serverID: message.guild.id,
                 coins: 1000,
-                bank: 0
+                bank: 0,
+                resources: {},
+                items: {},
+                equipped: ""
             });
            profile.save();
+           profileData = await profileModel.findOne({ userID: message.author.id });
         }
     }catch(err) {
         console.log(err);
     }
 
-    if(typeof profileData.resources.get("sDust") !== "undefined") {
-        let dustAmount = profileData.resources.get("sDust");
-        const response = await profileModel.findOneAndUpdate({
-            userID: message.author.id
-        }, {
-            $unset: {
-                resources: {sDust: ""}
-            }
-        });
-        const res = await profileModel.findOneAndUpdate({
-            userID: message.author.id
-        }, {
-            $set: {
-                resources: {rStarDust:dustAmount}
-            }
-        });
+    try {
+        if(typeof profileData.resources.get("sDust") !== "undefined") {
+            let dustAmount = profileData.resources.get("sDust");
+            const response = await profileModel.findOneAndUpdate({
+                userID: message.author.id
+            }, {
+                $unset: {
+                    resources: {sDust: ""}
+                }
+            });
+            const res = await profileModel.findOneAndUpdate({
+                userID: message.author.id
+            }, {
+                $set: {
+                    resources: {rStarDust:dustAmount}
+                }
+            });
+        }
+    } catch(err) {
+        console.log(err);
     }
 
     const args = message.content.slice(process.env.PREFIX.length).split(/ +/);

@@ -12,7 +12,11 @@ module.exports = {
         for(let item of resources.keys()) {
             if(typeof resources.get(item) !== "undefined") {
                 const emoji = client.emojis.cache.find(emoji => emoji.name === item);
-                description+=`${resources.get(item)}x ${emoji} \n`;
+                if(typeof emoji !== "undefined") {
+                    description += `${resources.get(item)}x ${emoji} \n`;
+                } else {
+                    description += `${resources.get(item)}x ${item} \n`;
+                }
             }
         }
 

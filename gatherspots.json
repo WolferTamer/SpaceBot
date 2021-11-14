@@ -7,7 +7,9 @@
             "modifiers" : {
                 "asteroid":1,
                 "meteor": 1.2,
-                "star" : 1
+                "star" : 1,
+                "comet" : 1,
+                "planet" : 1
             },
             "description": "You travel to a nearby meteor and harvest: \n"
         }, {
@@ -17,7 +19,9 @@
             "modifiers" : {
                 "asteroid":1.2,
                 "meteor": 1,
-                "star" : 1
+                "star" : 1,
+                "comet" : 1,
+                "planet" : 1
             },
             "description": "You navigate through the asteroid belt and fetch: \n"
         }, {
@@ -27,9 +31,35 @@
             "modifiers" : {
                 "asteroid":1,
                 "meteor": 1,
-                "star" : 1.2
+                "star" : 1.2,
+                "comet" : 1,
+                "planet" : 1
             },
             "description": "You withstand the brutal heat of a star to find: \n"
+        }, {
+            "name" : "Comet",
+            "chance" : 0.5,
+            "image" : "link",
+            "modifiers" : {
+                "asteroid":1,
+                "meteor": 1,
+                "star" : 1,
+                "comet" : 1.2,
+                "planet" : 1
+            },
+            "description": "You avoid the comet's tail to land on it and gather: \n"
+        }, {
+            "name" : "Planet",
+            "chance" : 0.5,
+            "image" : "link",
+            "modifiers" : {
+                "asteroid":1,
+                "meteor": 1,
+                "star" : 1,
+                "comet" : 1,
+                "planet" : 1
+            },
+            "description": "You land on a local planet to discover: \n"
         }
     ]
 }

@@ -97,7 +97,11 @@ module.exports = {
 
                 for(key in descriptionData) {
                     const emoji = client.emojis.cache.find(emoji => emoji.name === key)
+                    if(typeof emoji !== "undefined") {
                     description += `${descriptionData[key]}x ${emoji}, `;
+                    } else {
+                        description += `${descriptionData[key]}x ${key}, `;
+                    }
                 }
             
                 const response = await profileModel.findOneAndUpdate({
@@ -168,7 +172,11 @@ module.exports = {
 
             for(key in descriptionData) {
                 const emoji = client.emojis.cache.find(emoji => emoji.name === key)
+                if(typeof emoji !== "undefined") {
                 description += `${descriptionData[key]}x ${emoji}, `;
+                } else {
+                    description += `${descriptionData[key]}x ${key}, `;
+                }
             }
         
             const response = await profileModel.findOneAndUpdate({

@@ -8,12 +8,54 @@
             "image" : "link",
             "category" : "meteor"
         }, {
+            "name" : "Comet Ice",
+            "id" : "cIce",
+            "chance" : 0.5,
+            "rarity" : "normal",
+            "image" : "link",
+            "category" : "comet"
+        }, {
+            "name" : "Carbon Gas",
+            "id" : "cGas",
+            "chance" : 0.5,
+            "rarity" : "normal",
+            "image" : "link",
+            "category" : "planet"
+        }, {
             "name" : "Asteroid Iron",
             "id" : "aIron",
+            "chance" : 0.5,
+            "rarity" : "common",
+            "image" : "link",
+            "category" : "asteroid"
+        }, {
+            "name" : "Asteroid Diamond",
+            "id" : "aDiamond",
             "chance" : 0.5,
             "rarity" : "uncommon",
             "image" : "link",
             "category" : "asteroid"
+        }, {
+            "name" : "Liquid Oxygen",
+            "id" : "lOxygen",
+            "chance" : 0.5,
+            "rarity" : "uncommon",
+            "image" : "link",
+            "category" : "planet"
+        }, {
+            "name" : "Comet Trail Dust",
+            "id" : "cTrailDust",
+            "chance" : 0.5,
+            "rarity" : "uncommon",
+            "image" : "link",
+            "category" : "comet"
+        }, {
+            "name" : "Meteor Magma",
+            "id" : "mMagma",
+            "chance" : 0.5,
+            "rarity" : "uncommon",
+            "image" : "link",
+            "category" : "meteor"
         }, {
             "name" : "Yellow Star Dust",
             "id" : "yStarDust",
