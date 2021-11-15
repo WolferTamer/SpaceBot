@@ -57,7 +57,19 @@
                 "meteor": 1,
                 "star" : 1,
                 "comet" : 1,
-                "planet" : 1
+                "planet" : 1.2
+            },
+            "description": "You land on a local planet to discover: \n"
+        }, {
+            "name" : "Planet",
+            "chance" : 0.05,
+            "image" : "link",
+            "modifiers" : {
+                "asteroid":1,
+                "meteor": 1,
+                "star" : 1,
+                "comet" : 1,
+                "planet" : 1.6
             },
             "description": "You land on a local planet to discover: \n"
         }

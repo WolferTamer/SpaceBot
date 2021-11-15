@@ -26,28 +26,6 @@ module.exports = async(Discord, client, message) => {
         console.log(err);
     }
 
-    try {
-        if(typeof profileData.resources.get("sDust") !== "undefined") {
-            let dustAmount = profileData.resources.get("sDust");
-            const response = await profileModel.findOneAndUpdate({
-                userID: message.author.id
-            }, {
-                $unset: {
-                    resources: {sDust: ""}
-                }
-            });
-            const res = await profileModel.findOneAndUpdate({
-                userID: message.author.id
-            }, {
-                $set: {
-                    resources: {rStarDust:dustAmount}
-                }
-            });
-        }
-    } catch(err) {
-        console.log(err);
-    }
-
     const args = message.content.slice(process.env.PREFIX.length).split(/ +/);
     const cmd = args.shift().toLowerCase();
     const command = client.commands.get(cmd) || client.commands.find(a => a.aliases && a.aliases.includes(cmd));

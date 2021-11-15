@@ -199,7 +199,8 @@ module.exports = {
 function gathered(common, uncommon, great, rare, unique, epic, ultra, tool) {
     var listOfResources = [];
     if(typeof tool === "undefined") {
-        for(var i = 0; i < 1; i++) {
+        const amount = 1+Math.floor(3*Math.random());
+        for(var i = 0; i < amount; i++) {
             const randomNumber = Math.random();
             if(randomNumber <= .80) {
                 listOfResources.push(randomResource(common));
@@ -218,7 +219,8 @@ function gathered(common, uncommon, great, rare, unique, epic, ultra, tool) {
             }
         }
     } else {
-        for(var i = 0; i < tool.amount; i++) {
+        const amount = tool.amount-tool.range+Math.floor((1+tool.range*2)*Math.random());
+        for(var i = 0; i < amount; i++) {
             const randomNumber = Math.random();
             if(randomNumber <= calcRarity(tool.rarities, 1)) {
                 listOfResources.push(randomResource(common));

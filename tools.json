@@ -3,30 +3,34 @@
         {
             "name":"Normal Pickaxe",
             "id":"nPickaxe",
-            "amount": 3,
+            "amount": 4,
+            "range" : 1,
             "rarities":".75",
             "recipe": {"oStarDust":2, "mRock":10},
             "description" :"Increases the amount of resources you get per gather to 3 and barely increases the odds of getting an uncommon or better resource."
         }, {
             "name":"Normal Drill",
             "id":"nDrill",
-            "amount": 4,
+            "amount": 5,
+            "range" : 1,
             "rarities":".8",
-            "recipe": {"aIron":2, "rStarDust":10},
+            "recipe": {"aDiamond":2, "rStarDust":5, "cIce":5},
             "description" :"Increases the amount of resources you get per gather to 4!"
         }, {
             "name":"Uncommon Pickaxe",
             "id":"uPickaxe",
-            "amount": 5,
+            "amount": 6,
+            "range" : 1,
             "rarities":".70",
-            "recipe": {"aIron":10, "yStarDust":2},
+            "recipe": {"aIron":30, "cTrailDust":10, "yStarDust":2},
             "description" :"Increases the amount of resources you get per gather to 5 and somewhat increases the odds of getting uncommon or better resource"
         }, {
             "name":"Uncommon Drill",
             "id":"uDrill",
-            "amount": 7,
+            "amount": 8,
+            "range" : 1,
             "rarities":".8",
-            "recipe": {"aIron":2, "oStarDust":10},
+            "recipe": {"cGas": 30, "mMagma":10, "yStarDust":2},
             "description" :"Increases the amount of resources you get per gather to 7."
         }
     ]
