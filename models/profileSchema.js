@@ -7,7 +7,9 @@ const profileSchema = new mongoose.Schema({
     bank: {type: Number},
     resources: {type: Map, of: Number},
     items: {type: Map, of: Number},
-    equipped: {type: String}
+    equipped: {type: String},
+    timeAutoStarted: {type: Number},
+    autoToComplete: {type: Number}
 });
 
 const model = mongoose.model("ProfileModels", profileSchema);

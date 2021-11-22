@@ -25,7 +25,12 @@ module.exports = {
         for(let item of items.keys()) {
             if(typeof items.get(item) !== "undefined") {
                 //const emoji = client.emojis.cache.find(emoji => emoji.name === items[item][0]);
-                toolDescription+=`${items.get(item)}x ${item} \n`;
+                const emoji = client.emojis.cache.find(emoji => emoji.name === item);
+                if(typeof emoji !== "undefined") {
+                    toolDescription+=`${items.get(item)}x ${emoji} \n`;
+                } else {
+                    toolDescription+=`${items.get(item)}x ${item} \n`;
+                }
             }
         }
         

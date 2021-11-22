@@ -30,7 +30,11 @@ module.exports = {
         } else {
             var toolDescription = "";
             for(const tool of toolsData["tools"]) {
-                toolDescription += tool["id"]+ " : " + tool["name"] + "\n";
+                const emoji = client.emojis.cache.find(emoji => emoji.name === tool.id);
+                if(typeof emoji !== "undefined") {
+                    toolDescription += `${emoji} : `;
+                }
+                toolDescription += `${tool.id} : ${tool.name}\n`;
             }
 
             const common = resourceData["resources"].filter((data) => {
@@ -122,13 +126,11 @@ module.exports = {
                         resourceEmbed = resourceEmbed
                         .setTitle('List of resources:')
                         .setDescription(resourceDescriptions[resourcePage])
-                        .setFooter('React with 🔄 to cycle between sections and ⬅️/➡️ to switch between rarities.');
                         sentMessage.edit(resourceEmbed);
                     } else if(reaction.emoji.name === '➡️' && resourcePage < resourceDescriptions.length-1) {
                         resourcePage++;
                         resourceEmbed = resourceEmbed
                         .setDescription(resourceDescriptions[resourcePage])
-                        .setFooter('React with 🔄 to cycle between sections and ⬅️/➡️ to switch between rarities.');
                         sentMessage.edit(resourceEmbed);
                     }
                 }
