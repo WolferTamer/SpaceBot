@@ -103,7 +103,7 @@ module.exports = {
                     }
                 });
 
-                var description = `Your auto has been set out! It will return in ${hours} hours, ${mins} minutes, ${secs} seconds with ${amountToSpend/2} resources`;
+                var description = `Your auto has been set out! It will return in ${hours} hours, ${mins} minutes, ${secs} seconds with ${Math.round(amountToSpend/2)} resources`;
                 const embed = new Discord.MessageEmbed()
                     .setColor('#080885')
                     .setTitle('AutoGather')
