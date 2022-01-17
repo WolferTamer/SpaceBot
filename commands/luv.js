@@ -3,15 +3,23 @@ module.exports = {
     cooldown: 5,
     description: "Sends luv to someone",
     usage: ".luv `[user mention]`",
+    options: [
+        {
+            name: "user",
+            description: "The user you want to luv",
+            required: true,
+            type: 6
+        }
+    ],
     async execute(client, message, args) {
-        const person = message.guild.member(message.mentions.users.first() || message.guild.members.fetch(args[1]))
+        const person = await message.guild.members.fetch(args[0]);
 
         if(person == null) {
-            message.channel.send('Please provide a valid user');
-        } else if(person.id === message.author.id) {
-            message.channel.send(`I'm glad you love yourself :)`)
+            message.reply('Please provide a valid user');
+        } else if(person.id === message.member.id) {
+            message.reply(`I'm glad you love yourself :)`)
         } else {
-            message.channel.send(`${person.user.username}, hey! ${message.author.username} loves you!`);
+            message.reply(`${person.displayName}, hey! ${message.member.displayName} loves you!`);
         }
     }
 }

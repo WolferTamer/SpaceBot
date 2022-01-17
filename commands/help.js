@@ -5,8 +5,16 @@ module.exports = {
     name: "help",
     cooldown: 5,
     aliases: ['h'],
-    description: "Lists all commands or gives information on a specific command including aliases, description, and usage.",
+    description: "Lists all commands or gives information on a specific command",
     usage: ".help `{command name}`",
+    options: [
+        {
+            name: "command",
+            description: "The name of the command you want more info on",
+            required: false,
+            type: 3
+        }
+    ],
     async execute(client, message, args, Discord, profileData) {
         const commandFiles = fs.readdirSync('./commands/').filter(file => file.endsWith('.js'));
         var description = "";
@@ -43,7 +51,7 @@ module.exports = {
             .setColor('#eb7d34')
             .setTitle(title)
             .setDescription(description)
-            .setFooter('[] = required argument, {} = optional argument, () = additional dialogue');
-        message.channel.send(embed);
+            .setFooter({text:'[] = required argument, {} = optional argument, () = additional dialogue'});
+        message.reply({embeds: [embed]});
     }
 }

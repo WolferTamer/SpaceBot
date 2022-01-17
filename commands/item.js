@@ -1,3 +1,4 @@
+const { MessageButton, MessageActionRow } = require('discord.js');
 const fs = require('fs');
 const profileModel = require('../models/profileSchema');
 const toolsJSON = fs.readFileSync('./tools.json');
@@ -10,6 +11,14 @@ module.exports = {
     cooldown: 5,
     description: "Look at a list of items or check a specific item's stats.",
     usage: ".item `{item id}`",
+    options: [
+        {
+            name: "item",
+            description: "The id of the item you want more info on",
+            required: false,
+            type: 3
+        }
+    ],
     async execute(client, message, args, Discord, profileData) {
 
         
@@ -22,10 +31,10 @@ module.exports = {
                 .setColor('#080885')
                 .setTitle('Info for '+ tool.name + ':')
                 .setDescription(description)
-                .setFooter('Today\'s item description has been provided by Wolfer & Abby Inc.');
-                var message = await message.channel.send(embed) 
+                .setFooter({text:'Today\'s item description has been provided by Wolfer & Abby Inc.'});
+                var message = await message.reply({embeds: [embed]}) 
             } else {
-                message.channel.send("Tool not found: " + args[0]);
+                message.reply("Tool not found: " + args[0]);
             }
         } else {
             var toolDescription = "";
@@ -74,83 +83,66 @@ module.exports = {
                 resourceDescriptions.push(resourceDescription);
             }
 
+            const row = new MessageActionRow()
+            .addComponents([
+                new MessageButton()
+                    .setCustomId('itemLeft')
+                    .setLabel('Shift left')
+                    .setStyle('SUCCESS'),
+                new MessageButton()
+                    .setCustomId('itemRight')
+                    .setLabel('Shift Right')
+                    .setStyle('SUCCESS'),
+                new MessageButton()
+                    .setCustomId('itemCycle')
+                    .setLabel('Cycle')
+                    .setStyle('PRIMARY')
+                ]
+            );
             const toolEmbed = new Discord.MessageEmbed()
                 .setColor('#080885')
                 .setTitle('List of tools:')
                 .setDescription(toolDescription)
-                .setFooter('React with 🔄 to cycle between sections.'); 
+                .setFooter({text:'React with 🔄 to cycle between sections.'}); 
             var resourceEmbed = new Discord.MessageEmbed()
                 .setColor('#080885')
                 .setTitle('List of resources:')
                 .setDescription(resourceDescriptions[0])
-                .setFooter('React with 🔄 to cycle between sections and ⬅️/➡️ to switch between rarities.');
-            var sentMessage = await message.channel.send(resourceEmbed) 
+                .setFooter({text:'React with 🔄 to cycle between sections and ⬅️/➡️ to switch between rarities.'});
+            var sentMessage = await message.reply({embeds: [resourceEmbed], components: [row], fetchReply: true}) 
             
-            const filter = (reaction,user) => reaction.emoji.name === '🔄' && user.id === message.author.id;
-            const filtertwo = (reaction,user) => (reaction.emoji.name === '⬅️' || reaction.emoji.name === '➡️') && user.id === message.author.id;
 
-            sentMessage.react('⬅️');
-            sentMessage.react('➡️');
-            sentMessage.react('🔄');
-
-            const collector = sentMessage.createReactionCollector(filter, {time: 120000, dispose: true});
-            const collector2 = sentMessage.createReactionCollector(filtertwo, {time: 120000, dispose: true})
+            const collector = sentMessage.createMessageComponentCollector({componentType: 'BUTTON', time: 120000});
 
             var changed = false;
             var resourcePage = 0;
 
-            collector.on('collect', async (reaction, user) => {
-                if(changed) {
-                    sentMessage.edit(resourceEmbed);
-                    changed = false;
-                } else {
-                    sentMessage.edit(toolEmbed);
-                    changed = true;
-                }
-            });
-
-            collector.on('remove', async (reaction, user) => {
-                if(changed) {
-                    sentMessage.edit(resourceEmbed);
-                    changed = false;
-                } else {
-                    sentMessage.edit(toolEmbed);
-                    changed = true;
-                }
-            });
-
-            collector2.on('collect', async (reaction, user) => {
-                if(!changed) {
-                    if(reaction.emoji.name === '⬅️' && resourcePage > 0) {
-                        resourcePage--;
-                        resourceEmbed = resourceEmbed
-                        .setTitle('List of resources:')
-                        .setDescription(resourceDescriptions[resourcePage])
-                        sentMessage.edit(resourceEmbed);
-                    } else if(reaction.emoji.name === '➡️' && resourcePage < resourceDescriptions.length-1) {
-                        resourcePage++;
-                        resourceEmbed = resourceEmbed
-                        .setDescription(resourceDescriptions[resourcePage])
-                        sentMessage.edit(resourceEmbed);
+            collector.on('collect', async interaction => {
+                if(interaction.customId === "itemCycle") {
+                    if(changed) {
+                        var components = interaction.message.components[0].components;
+                        components[0] = components[0].setDisabled(false);
+                        components[1] = components[1].setDisabled(false);
+                        interaction.update({embeds: [resourceEmbed], components: [new MessageActionRow().addComponents(components)]});
+                        changed = false;
+                    } else {
+                        var components = interaction.message.components[0].components;
+                        components[0] = components[0].setDisabled(true);
+                        components[1] = components[1].setDisabled(true);
+                        interaction.update({embeds: [toolEmbed], components: [new MessageActionRow().addComponents(components)]});
+                        changed = true;
                     }
-                }
-            });
-
-            collector2.on('remove', async (reaction, user) => {
-                if(!changed) {
-                    if(reaction.emoji.name === '⬅️' && resourcePage > 0) {
-                        resourcePage--;
-                        resourceEmbed = resourceEmbed
-                        .setDescription(resourceDescriptions[resourcePage])
-                        .setFooter('React with 🔄 to cycle between sections and ⬅️/➡️ to switch between rarities.');
-                        sentMessage.edit(resourceEmbed);
-                    } else if(reaction.emoji.name === '➡️' && resourcePage < resourceDescriptions.length-1) {
-                        resourcePage++;
-                        resourceEmbed = resourceEmbed
-                        .setDescription(resourceDescriptions[resourcePage])
-                        .setFooter('React with 🔄 to cycle between sections and ⬅️/➡️ to switch between rarities.');
-                        sentMessage.edit(resourceEmbed);
-                    }
+                } else if (interaction.customId === "itemLeft" && !changed) {
+                    resourcePage--;
+                    resourceEmbed = resourceEmbed
+                    .setTitle('List of resources:')
+                    .setDescription(resourceDescriptions[resourcePage])
+                    interaction.update({embeds: [resourceEmbed]});
+                } else if (interaction.customId === "itemRight" && !changed) {
+                    resourcePage++;
+                    resourceEmbed = resourceEmbed
+                    .setDescription(resourceDescriptions[resourcePage])
+                    interaction.update({embeds: [resourceEmbed]});
                 }
             });
         }

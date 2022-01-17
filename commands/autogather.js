@@ -9,6 +9,14 @@ module.exports = {
     aliases: ['ag'],
     description: "Automatically gather items over time",
     usage: ".gather {ac} \n`(location choice)`",
+    options: [
+        {
+            name: "amount",
+            description: "The amount you want to spend on gathering resources",
+            required: false,
+            type: 4
+        }
+    ],
     async execute(client, message, args, Discord, profileData) {
         const d = new Date();
         if(profileData.autoToComplete != 0 && profileData.timeAutoStarted+profileData.autoToComplete <= d.getTime()) {
@@ -59,9 +67,8 @@ module.exports = {
                     description += `${descriptionData[key]}x ${key}, `;
                 }
             }
-    
             const response = await profileModel.findOneAndUpdate({
-                userID: message.author.id
+                userID: message.member.id
             }, {
                 $inc: uploadData,
                 $set: {autoToComplete: 0}
@@ -71,8 +78,8 @@ module.exports = {
                 .setColor('#080885')
                 .setTitle('Your auto gathered:')
                 .setDescription(description)
-                .setFooter('Today\'s gatherings have been provided by Wolfer & Abby Inc.');
-            message.channel.send(embed);
+                .setFooter({text:'Today\'s gatherings have been provided by Wolfer & Abby Inc.'});
+            message.reply({embeds: [embed]});
         }
 
         else if(typeof args[0] !== "undefined") {
@@ -85,7 +92,7 @@ module.exports = {
                 var secs  = Math.round(timeComplete%6e4 / 1e3);
                 
                 const response = await profileModel.findOneAndUpdate({
-                    userID: message.author.id
+                    userID: message.member.id
                 }, {
                     $set: {
                         timeAutoStarted: time,
@@ -101,8 +108,8 @@ module.exports = {
                     .setColor('#080885')
                     .setTitle('AutoGather')
                     .setDescription(description)
-                    .setFooter('Today\'s gatherings have been provided by Wolfer & Abby Inc.');
-                message.channel.send(embed);
+                    .setFooter({text:'Today\'s gatherings have been provided by Wolfer & Abby Inc.'});
+                message.reply({embeds: [embed]});
             }
         } else {
             var description = `This will be filled with bot levels/info soon`;
@@ -117,9 +124,9 @@ module.exports = {
                 var hours = timeComplete/3.6e6 | 0;
                 var mins  = timeComplete%3.6e6 / 6e4 | 0;
                 var secs  = Math.round(timeComplete%6e4 / 1e3);
-                embed = embed.setFooter(`Your auto has been set out! It will return in ${hours} hours, ${mins} minutes, ${secs} seconds with ${profileData.autoToComplete/2000} resources`);
+                embed = embed.setFooter({text:`Your auto has been set out! It will return in ${hours} hours, ${mins} minutes, ${secs} seconds with ${profileData.autoToComplete/2000} resources`});
             }
-            message.channel.send(embed);
+            message.reply({embeds: [embed]});
         }
 
     }

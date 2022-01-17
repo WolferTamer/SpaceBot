@@ -3,13 +3,21 @@ module.exports = {
     cooldown: 5,
     description: "Sends a cat hug gif to someone.",
     usage: ".hug `[user mention]`",
+    options: [
+        {
+            name: "user",
+            description: "The user you want to hug",
+            required: true,
+            type: 6
+        }
+    ],
     async execute(client, message, args, Discord) {
-        const person = message.guild.member(message.mentions.users.first() || message.guild.members.fetch(args[1]))
-
+        const person = await message.guild.members.fetch(args[0]);
+        
         if(person == null) {
-            message.channel.send('Please provide a valid user');
-        } else if(person.id === message.author.id) {
-            message.channel.send(`But.... How can you hug yourself?`)
+            message.reply('Please provide a valid user');
+        } else if(person.id === message.member.id) {
+            message.reply(`But.... How can you hug yourself?`)
         } else {
             var catgif = "";
             switch (Math.floor(Math.random()*4)) {
@@ -20,10 +28,10 @@ module.exports = {
             }
             const embed = new Discord.MessageEmbed()
             .setColor('#e650bb')
-            .setTitle(`Hey ${person.user.username}, ${message.author.username} is giving you a big hug!`)
+            .setTitle(`Hey ${person.displayName}, ${message.member.displayName} is giving you a big hug!`)
             .setImage(catgif)
-            .setFooter('Today\'s hugs have been provided by Wolfer & Abby Inc.');
-            message.channel.send(embed);
+            .setFooter({text:'Today\'s hugs have been provided by Wolfer & Abby Inc.'});
+            message.reply({embeds: [embed]});
         }
     }
 }

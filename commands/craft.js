@@ -10,6 +10,14 @@ module.exports = {
     cooldown: 15,
     description: "Craft an item using resources gotten from gathering.",
     usage: ".craft `[item id]`",
+    options: [
+        {
+            name: "item",
+            description: "The id of the item you want to craft",
+            required: true,
+            type: 3
+        }
+    ],
     async execute(client, message, args, Discord, profileData) {
         var tool = toolsData["tools"].find(element => element.id === args[0]);
         if(typeof tool !== "undefined") {
@@ -27,16 +35,16 @@ module.exports = {
             if(enough) {
                 cost["items."+args[0]] = 1;
                 const response = await profileModel.findOneAndUpdate({
-                    userID: message.author.id
+                    userID: message.member.id
                 }, {
                     $inc: cost
                 });
-                message.channel.send("You have crafted a " + tool.name);
+                message.reply("You have crafted a " + tool.name);
             } else {
-                message.channel.send("Not enough resources to craft this item!");
+                message.reply("Not enough resources to craft this item!");
             }
         } else {
-            message.channel.send("Tool not found: " + args[0]);
+            message.reply("Tool not found: " + args[0]);
         }
     }
 }

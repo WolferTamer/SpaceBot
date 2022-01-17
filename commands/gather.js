@@ -6,13 +6,22 @@ const spotJSON = fs.readFileSync('./gatherspots.json');
 const spotData = JSON.parse(spotJSON);
 const toolsJSON = fs.readFileSync('./tools.json');
 const toolsData = JSON.parse(toolsJSON);
+const { MessageButton, MessageActionRow } = require('discord.js');
 
 module.exports = {
     name: "gather",
     cooldown: 20,
     aliases: ['g'],
-    description: "Choose a location to gather from either by replying with your choice or using ac to automatically choose. Gives various resource items. Can be buffed using tools.",
-    usage: ".gather {ac} \n`(location choice)`",
+    description: "Choose a location to gather from either",
+    usage: ".gather {ac}",
+    options: [
+        {
+            name: "ac",
+            description: "Whether to autocomplete or not",
+            required: false,
+            type: 3
+        }
+    ],
     async execute(client, message, args, Discord, profileData) {
 
         var locations = [];
@@ -31,23 +40,43 @@ module.exports = {
         }
         descriptionOne += "To choose which location to explore, type the corresponding number in the chat within the next 20 seconds."
 
+        const row = new MessageActionRow()
+            .addComponents([
+                new MessageButton()
+                    .setCustomId('option1')
+                    .setLabel(locations[0].name)
+                    .setStyle('PRIMARY'),
+                new MessageButton()
+                    .setCustomId('option2')
+                    .setLabel(locations[1].name)
+                    .setStyle('PRIMARY'),
+                new MessageButton()
+                    .setCustomId('option3')
+                    .setLabel(locations[2].name)
+                    .setStyle('PRIMARY')
+                ]
+            );
         const embed = new Discord.MessageEmbed()
         .setColor('#080885')
         .setTitle('Gather Options:')
         .setDescription(descriptionOne)
-        .setFooter('Today\'s options have been provided by Wolfer & Abby Inc.');
-        var firstMessage = await message.channel.send(embed)
+        .setFooter({text:'Today\'s options have been provided by Wolfer & Abby Inc.'});
+        var firstMessage = await message.reply({embeds: [embed], components: [row], fetchReply: true})
             .catch(console.error);
         if(args[0] !== "ac") {
-            const collector = new Discord.MessageCollector(message.channel, m => m.author.id === message.author.id, {time: 20000});
-            collector.on('collect', async messageResponse => {
+            const collector = firstMessage.createMessageComponentCollector({componentType: 'BUTTON', time: 20000});
+            collector.on('collect', async interaction => {
 
-                if(firstMessage.editedAt || !parseInt(messageResponse.content) || parseInt(messageResponse.content) > locations.length || parseInt(messageResponse.content) < 1) {
+                if(firstMessage.editedAt) {
                     return;
                 }
-                messageResponse.delete();
+                let location;
+                switch(interaction.customId) {
+                    case 'option1' : location = locations[0]; break;
+                    case 'option2' : location = locations[1]; break;
+                    case 'option3' : location = locations[2]; break;
+                }
 
-                const location = locations[parseInt(messageResponse.content)-1];
 
                 var locationList = [];
                 for(let item of resourceData["resources"]) {
@@ -105,7 +134,7 @@ module.exports = {
                 }
             
                 const response = await profileModel.findOneAndUpdate({
-                    userID: message.author.id
+                    userID: message.member.id
                 }, {
                     $inc: uploadData
                 });
@@ -115,8 +144,8 @@ module.exports = {
                 .setTitle('You gathered:')
                 .setDescription(description)
                 .setImage('https://assets.newatlas.com/dims4/default/b89cd58/2147483647/strip/true/crop/925x617+0+232/resize/1200x800!/quality/90/?url=http%3A%2F%2Fnewatlas-brightspot.s3.amazonaws.com%2Farchive%2Fchandra-nasa-space-telescope-anniversary-4.jpg')
-                .setFooter('Today\'s gatherings have been provided by Wolfer & Abby Inc.');
-                firstMessage.edit(embed);
+                .setFooter({text:'Today\'s gatherings have been provided by Wolfer & Abby Inc.'});
+                interaction.update({embeds: [embed], components: []});
             
             });
         }
@@ -180,7 +209,7 @@ module.exports = {
             }
         
             const response = await profileModel.findOneAndUpdate({
-                userID: message.author.id
+                userID: message.member.id
             }, {
                 $inc: uploadData
             });
@@ -190,8 +219,8 @@ module.exports = {
             .setTitle('You gathered:')
             .setDescription(description)
             .setImage('https://assets.newatlas.com/dims4/default/b89cd58/2147483647/strip/true/crop/925x617+0+232/resize/1200x800!/quality/90/?url=http%3A%2F%2Fnewatlas-brightspot.s3.amazonaws.com%2Farchive%2Fchandra-nasa-space-telescope-anniversary-4.jpg')
-            .setFooter('Today\'s gatherings have been provided by Wolfer & Abby Inc.');
-            firstMessage.edit(embed);
+            .setFooter({text:'Today\'s gatherings have been provided by Wolfer & Abby Inc.'});
+            firstMessage.edit({embeds: [embed], components: []});
         }
     }
 }

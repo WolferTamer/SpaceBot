@@ -1,3 +1,4 @@
+const { MessageActionRow, MessageButton } = require('discord.js');
 const profileModel = require('../models/profileSchema');
 
 module.exports = {
@@ -35,43 +36,39 @@ module.exports = {
         }
         
 
+        const row = new MessageActionRow()
+            .addComponents(
+                new MessageButton()
+                    .setCustomId('invCycle')
+                    .setLabel('Cycle')
+                    .setStyle('PRIMARY')
+            );
         const resourceEmbed = new Discord.MessageEmbed()
-            .setColor('#eb7d34')
+            .setColor([235,125,52])
             .setTitle('Resources:')
             .setDescription(resourceDescription)
-            .setFooter('React with 🔄 to cycle between sections.');
+            .setFooter({text:'React with 🔄 to cycle between sections.'});
         const toolEmbed = new Discord.MessageEmbed()
-            .setColor('#eb7d34')
+            .setColor([235,125,52])
             .setTitle('Tools:')
             .setDescription(toolDescription)
-            .setFooter('React with 🔄 to cycle between sections.');
-        var sentMessage = await message.channel.send(resourceEmbed);
+            .setFooter({text:'React with 🔄 to cycle between sections.'});
+        var sentMessage = await message.reply({embeds: [resourceEmbed], components: [row], fetchReply: true});
+        
 
-        const filter = (reaction,user) => reaction.emoji.name === '🔄' && user.id === message.author.id;
-
-        sentMessage.react('🔄');
-
-        const collector = sentMessage.createReactionCollector(filter, {time: 120000, dispose: true});
+        const collector = sentMessage.createMessageComponentCollector({componentType: 'BUTTON', time: 120000});
 
         var changed = false;
 
-        collector.on('collect', async (reaction, user) => {
-            if(changed) {
-                sentMessage.edit(resourceEmbed);
-                changed = false;
-            } else {
-                sentMessage.edit(toolEmbed);
-                changed = true;
-            }
-        });
-
-        collector.on('remove', async (reaction, user) => {
-            if(changed) {
-                sentMessage.edit(resourceEmbed);
-                changed = false;
-            } else {
-                sentMessage.edit(toolEmbed);
-                changed = true;
+        collector.on('collect', async interaction => {
+            if(interaction.customId === 'invCycle') {
+                if(changed) {
+                    interaction.update({embeds: [resourceEmbed]});
+                    changed = false;
+                } else {
+                    interaction.update({embeds: [toolEmbed]});
+                    changed = true;
+                }
             }
         });
     }

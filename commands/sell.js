@@ -9,15 +9,28 @@ module.exports = {
     aliases: ["s"],
     description: "Sell a resource from your inventory",
     usage: ".sell [amount] [resource]",
+    options: [
+        {
+            name: "amount",
+            description: "The amount of the resource you want to sell",
+            required: true,
+            type: 4
+        }, {
+            name: "resource",
+            description: "The id of the resource you want to sell",
+            required: true,
+            type: 3
+        }
+    ],
     async execute(client, message, args, Discord, profileData) {
         const amount = parseInt(args[0]);
         if(amount == NaN) {
-            message.channel.send(`${args[0]} was not recognized as a number, please enter an amount to sell as the first parameter.`);
+            message.reply(`${args[0]} was not recognized as a number, please enter an amount to sell as the first parameter.`);
             return null;
         }
 
         var item = resourceData["resources"].find(element => element.id === args[1]);
-        if (item == undefined) {
+        if (typeof item === undefined) {
             var word = args[2];
             for(var i = 3; i < args.length; i++) {
                 word.concat(' ', args[i]);
@@ -25,8 +38,8 @@ module.exports = {
             item = resourceData["resources"].find(element => element.name.toUpperCase() == word.toUpperCase());
         }
 
-        if(item == undefined) {
-            message.channel.send(`${word} was not recognized as a resource, please enter either a resource ID or name as the second parameter.`);
+        if(typeof item === undefined) {
+            message.reply(`${word} was not recognized as a resource, please enter either a resource ID or name as the second parameter.`);
             return null;
         }
 
@@ -53,17 +66,16 @@ module.exports = {
             price = 15000*amount;
         }
 
-        var str = `resources.${item.id}`
-        var data = {str: amount};
+        
+        var data = {};
+        data[`resources.${item.id}`] = -amount;
+        data['coins'] = -price
 
         const response = await profileModel.findOneAndUpdate({
-            userID: message.author.id
+            userID: message.member.id
         }, {
-            $inc: {
-                coins: price,
-                str
-            }
+            $inc: data
         });
-        message.channel.send(`You just sold ${amount} ${item.name} ${client.emojis.cache.find(emoji => emoji.name === item.id)} for ${price} coins`);
+        message.reply(`You just sold ${amount} ${item.name} ${client.emojis.cache.find(emoji => emoji.name === item.id)} for ${price} coins`);
     }
 }

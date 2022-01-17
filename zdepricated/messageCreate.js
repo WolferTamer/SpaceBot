@@ -1,17 +1,17 @@
-const profileModel = require('../../models/profileSchema');
+const profileModel = require('../models/profileSchema');
 
 const cooldowns = new Map();
 
 module.exports = async(Discord, client, message) => {
 
-    if(!message.content.startsWith(process.env.PREFIX) || message.author.bot) return;
+    if(!message.content.startsWith(process.env.PREFIX) || message.member.bot) return;
     
     let profileData;
     try {
-        profileData = await profileModel.findOne({ userID: message.author.id });
+        profileData = await profileModel.findOne({ userID: message.member.id });
         if(!profileData) {
             let profile = await profileModel.create({
-                userID: message.author.id,
+                userID: message.member.id,
                 serverID: message.guild.id,
                 coins: 1000,
                 bank: 0,
@@ -20,7 +20,7 @@ module.exports = async(Discord, client, message) => {
                 equipped: ""
             });
            profile.save();
-           profileData = await profileModel.findOne({ userID: message.author.id });
+           profileData = await profileModel.findOne({ userID: message.member.id });
         }
     }catch(err) {
         console.log(err);
@@ -38,8 +38,8 @@ module.exports = async(Discord, client, message) => {
         const time_stamps = cooldowns.get(command.name);
         const cooldown_amount = (command.cooldown) * 1000;
 
-        if(time_stamps.has(message.author.id)) {
-            const expiration_time = time_stamps.get(message.author.id) + cooldown_amount;
+        if(time_stamps.has(message.member.id)) {
+            const expiration_time = time_stamps.get(message.member.id) + cooldown_amount;
 
             if(current_time < expiration_time) {
                 const time_left = (expiration_time - current_time) / 1000;
@@ -48,8 +48,8 @@ module.exports = async(Discord, client, message) => {
             }
         }
 
-        time_stamps.set(message.author.id, current_time);
-        setTimeout(() => time_stamps.delete(message.author.id), cooldown_amount);
+        time_stamps.set(message.member.id, current_time);
+        setTimeout(() => time_stamps.delete(message.member.id), cooldown_amount);
 
         try {
             if(command) command.execute(client, message, args, Discord, profileData);

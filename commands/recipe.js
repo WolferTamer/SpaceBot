@@ -11,6 +11,14 @@ module.exports = {
     aliases: ['r', 'rec'],
     description: "Check a recipe for an item.",
     usage: ".recipe `[item id]`",
+    options: [
+        {
+            name: "item",
+            description: "The item you want to check the recipe for",
+            required: true,
+            type: 3
+        }
+    ],
     async execute(client, message, args, Discord, profileData) {
         var tool = toolsData["tools"].find(element => element.id === args[0])
         if(typeof tool !== "undefined") {
@@ -23,10 +31,10 @@ module.exports = {
             .setColor('#080885')
             .setTitle('Recipe for '+ tool.name + ':')
             .setDescription(description)
-            .setFooter('Today\'s recipe has been provided by Wolfer & Abby Inc.');
-            var message = await message.channel.send(embed) 
+            .setFooter({text:'Today\'s recipe has been provided by Wolfer & Abby Inc.'});
+            var message = await message.reply({embeds: [embed]}) 
         } else {
-            message.channel.send("Tool not found: " + args[0]);
+            message.reply("Tool not found: " + args[0]);
         }
     }
 }
