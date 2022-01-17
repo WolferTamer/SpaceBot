@@ -25,7 +25,7 @@
             "name" : "Asteroid Iron",
             "id" : "aIron",
             "chance" : 0.5,
-            "rarity" : "common",
+            "rarity" : "normal",
             "image" : "link",
             "category" : "asteroid"
         }, {
