@@ -38,7 +38,7 @@ module.exports = {
         for(var i = 0; i < locations.length; i++) {
             descriptionOne += `**${i+1}**: ${locations[i]["name"]} \n`;
         }
-        descriptionOne += "To choose which location to explore, type the corresponding number in the chat within the next 20 seconds."
+        descriptionOne += "To choose which location to explore click on its corresponding button."
 
         const row = new MessageActionRow()
             .addComponents([

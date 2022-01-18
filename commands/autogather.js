@@ -18,7 +18,42 @@ module.exports = {
         }
     ],
     async execute(client, message, args, Discord, profileData) {
+        
         const d = new Date();
+
+        var efflvl = 0;
+        var efftot = 0;
+        var effnext = 0;
+        for(var i = 0; i <= profileData.autoStats.get("efficiency"); i+=(100*Math.pow(2,efflvl))) {
+            efflvl++
+            efftot = i;
+            effnext = Math.round(100*Math.pow(2,efflvl));
+        }
+        var costlvl = 0;
+        var costtot = 0;
+        var costnext = 0;
+        for(var i = 0; i <= profileData.autoStats.get("cost"); i+=(100*Math.pow(3,costlvl))) {
+            costlvl++
+            costtot = i;
+            costnext = Math.round(100*Math.pow(3,costlvl));
+        }
+        var explvl = 0;
+        var exptot = 0;
+        var expnext = 0;
+        for(var i = 0; i <= profileData.autoStats.get("exp"); i+=(100*Math.pow(2,explvl))) {
+            explvl++
+            exptot = i;
+            expnext = Math.round(100*Math.pow(2,explvl));
+        }
+        var speciallvl = 0;
+        var specialtot = 0;
+        var specialnext = 0;
+        for(var i = 0; i <= profileData.autoStats.get("special"); i+=(100*Math.pow(2,speciallvl))) {
+            speciallvl++
+            specialtot = i;
+            specialnext = Math.round(100*Math.pow(2,speciallvl));
+        }
+
         if(profileData.autoToComplete != 0 && profileData.timeAutoStarted+profileData.autoToComplete <= d.getTime()) {
             const common = resourceData["resources"].filter((data) => {
                 return data.rarity === "normal";
@@ -43,7 +78,7 @@ module.exports = {
             });
 
 
-            const listOfResources = gathered(common, uncommon, great, rare, unique, epic, ultra, profileData.autoToComplete/2000);
+            const listOfResources = gathered(common, uncommon, great, rare, unique, epic, ultra, Math.round(profileData.autoToComplete/(360000/efflvl)));
     
             var description = "";
             { String, Number } uploadData = {};
@@ -84,9 +119,9 @@ module.exports = {
 
         else if(typeof args[0] !== "undefined") {
             const amountToSpend = parseInt(args[0]);
-            if(amountToSpend != NaN && amountToSpend > 0) {
+            if(amountToSpend != NaN && amountToSpend > 0 && amountToSpend <= profileData.coins) {
                 let time = d.getTime();
-                let timeComplete = 1000*amountToSpend;
+                let timeComplete = 300000*amountToSpend/(21-costlvl);
                 var hours = timeComplete/3.6e6 | 0;
                 var mins  = timeComplete%3.6e6 / 6e4 | 0;
                 var secs  = Math.round(timeComplete%6e4 / 1e3);
@@ -103,7 +138,7 @@ module.exports = {
                     }
                 });
 
-                var description = `Your auto has been set out! It will return in ${hours} hours, ${mins} minutes, ${secs} seconds with ${Math.round(amountToSpend/2)} resources`;
+                var description = `Your auto has been set out! It will return in ${hours} hours, ${mins} minutes, ${secs} seconds with ${Math.round(timeComplete/(360000/efflvl))} resources`;
                 const embed = new Discord.MessageEmbed()
                     .setColor('#080885')
                     .setTitle('AutoGather')
@@ -112,7 +147,11 @@ module.exports = {
                 message.reply({embeds: [embed]});
             }
         } else {
-            var description = `This will be filled with bot levels/info soon`;
+            
+            var description = `Efficiency: \`LVL ${efflvl} | XP ${profileData.autoStats.get("efficiency")-efftot}/${effnext}\` ${efflvl*10} resources per hour
+            Cost: \`LVL ${costlvl} | XP ${profileData.autoStats.get("cost")-costtot}/${costnext}\` ${21-costlvl} dollars per 5 minutes
+            Experience: \`LVL ${explvl} | XP ${profileData.autoStats.get("exp")-exptot}/${expnext}\` ${8+2*explvl} exp per resource
+            Special: \`LVL ${speciallvl} | XP ${profileData.autoStats.get("special")-specialtot}/${specialnext}\` ${0.5+0.5*speciallvl}% chance for a special item`;
             
             var embed = new Discord.MessageEmbed()
                 .setColor('#080885')
@@ -124,7 +163,7 @@ module.exports = {
                 var hours = timeComplete/3.6e6 | 0;
                 var mins  = timeComplete%3.6e6 / 6e4 | 0;
                 var secs  = Math.round(timeComplete%6e4 / 1e3);
-                embed = embed.setFooter({text:`Your auto has been set out! It will return in ${hours} hours, ${mins} minutes, ${secs} seconds with ${profileData.autoToComplete/2000} resources`});
+                embed = embed.setFooter({text:`Your auto has been set out! It will return in ${hours} hours, ${mins} minutes, ${secs} seconds with ${Math.round(profileData.autoToComplete/(360000/efflvl))} resources`});
             }
             message.reply({embeds: [embed]});
         }

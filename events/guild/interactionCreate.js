@@ -17,7 +17,8 @@ module.exports = async(Discord, client, interaction) => {
                 bank: 0,
                 resources: {},
                 items: {},
-                equipped: ""
+                equipped: "",
+                autoStats: {efficiency:0, cost:0, exp: 0, special: 0}
             });
            profile.save();
            profileData = await profileModel.findOne({ userID: interaction.member.id });
@@ -25,6 +26,17 @@ module.exports = async(Discord, client, interaction) => {
     }catch(err) {
         console.log(err);
     }
+    
+    let upload = {autoStats: {efficiency:0, cost:0, exp: 0, special: 0}};
+    if(typeof profileData.autoStats === "undefined") {
+        const response = await profileModel.findOneAndUpdate({
+            userID: interaction.member.id
+        }, {
+            $set: upload,
+        });
+    }
+
+    profileData = await profileModel.findOne({ userID: interaction.member.id });
 
     let options = interaction.options.data;
     var args = [];

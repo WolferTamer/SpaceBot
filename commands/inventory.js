@@ -47,12 +47,10 @@ module.exports = {
             .setColor([235,125,52])
             .setTitle('Resources:')
             .setDescription(resourceDescription)
-            .setFooter({text:'React with 🔄 to cycle between sections.'});
         const toolEmbed = new Discord.MessageEmbed()
             .setColor([235,125,52])
             .setTitle('Tools:')
             .setDescription(toolDescription)
-            .setFooter({text:'React with 🔄 to cycle between sections.'});
         var sentMessage = await message.reply({embeds: [resourceEmbed], components: [row], fetchReply: true});
         
 

@@ -108,7 +108,7 @@ module.exports = {
                 .setColor('#080885')
                 .setTitle('List of resources:')
                 .setDescription(resourceDescriptions[0])
-                .setFooter({text:'React with 🔄 to cycle between sections and ⬅️/➡️ to switch between rarities.'});
+                .setFooter({text:'Use shift left/right to switch between rarities.'});
             var sentMessage = await message.reply({embeds: [resourceEmbed], components: [row], fetchReply: true}) 
             
 

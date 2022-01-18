@@ -13,7 +13,7 @@ module.exports = async (client, Discord) => {
 
         if(command.name) {
             client.commands.set(command.name, command);
-            if(typeof command.options === undefined) {
+            if(typeof command.options === "undefined") {
                 commands.push({name: command.name, description: command.description});
             } else {
                 commands.push({name: command.name, description: command.description, options: command.options});
@@ -31,7 +31,7 @@ module.exports = async (client, Discord) => {
 
             await rest.put(Routes.applicationGuildCommands(clientId, guildId), {body:commands});
 
-            console.log('Successfully reloaded apllication commands');
+            console.log('Successfully reloaded application commands');
         } catch(err) {
             console.error(err);
         }

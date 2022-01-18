@@ -30,7 +30,7 @@ module.exports = {
         }
 
         var item = resourceData["resources"].find(element => element.id === args[1]);
-        if (typeof item === undefined) {
+        if (typeof item === "undefined") {
             var word = args[2];
             for(var i = 3; i < args.length; i++) {
                 word.concat(' ', args[i]);
@@ -38,7 +38,7 @@ module.exports = {
             item = resourceData["resources"].find(element => element.name.toUpperCase() == word.toUpperCase());
         }
 
-        if(typeof item === undefined) {
+        if(typeof item === "undefined") {
             message.reply(`${word} was not recognized as a resource, please enter either a resource ID or name as the second parameter.`);
             return null;
         }

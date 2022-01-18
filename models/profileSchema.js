@@ -9,7 +9,8 @@ const profileSchema = new mongoose.Schema({
     items: {type: Map, of: Number},
     equipped: {type: String},
     timeAutoStarted: {type: Number},
-    autoToComplete: {type: Number}
+    autoToComplete: {type: Number},
+    autoStats: {type: Map, of: Number}
 });
 
 const model = mongoose.model("ProfileModels", profileSchema);
