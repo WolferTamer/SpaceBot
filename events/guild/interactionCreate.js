@@ -52,7 +52,7 @@ module.exports = async(Discord, client, interaction) => {
 
         const current_time = Date.now();
         const time_stamps = cooldowns.get(interaction.commandName);
-        const cooldown_amount = (interaction.commandName) * 1000;
+        const cooldown_amount = (command.cooldown) * 1000;
 
         if(time_stamps.has(interaction.member.id)) {
             const expiration_time = time_stamps.get(interaction.member.id) + cooldown_amount;
