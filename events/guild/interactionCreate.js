@@ -60,7 +60,7 @@ module.exports = async(Discord, client, interaction) => {
             if(current_time < expiration_time) {
                 const time_left = (expiration_time - current_time) / 1000;
 
-                return interaction.reply(`please wait **${time_left.toFixed(1)}** seconds before using ${interaction.commandName} again.`).then(msg => { setTimeout(() => msg.delete(), 6000)});
+                return interaction.reply({content: `Please wait **${time_left.toFixed(1)}** seconds before using ${interaction.commandName} again.`, fetchReply: true}).then(msg => { setTimeout(() => msg.delete(), 6000)});
             }
         }
 
