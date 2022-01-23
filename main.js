@@ -1,5 +1,5 @@
 const Discord = require('discord.js');
-const client = new Discord.Client({partials : ['MESSAGE', 'CHANNEL', 'REACTION'], intents: ["GUILDS", "GUILD_MESSAGES", "GUILD_MESSAGE_REACTIONS"]});
+const client = new Discord.Client({partials : ['MESSAGE', 'CHANNEL', 'REACTION'], intents: ["GUILDS", "GUILD_MESSAGES", "GUILD_MESSAGE_REACTIONS", "GUILD_MEMBERS"]});
 
 require('dotenv').config();
 
