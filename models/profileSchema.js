@@ -11,7 +11,9 @@ const profileSchema = new mongoose.Schema({
     timeAutoStarted: {type: Number},
     autoToComplete: {type: Number},
     autoStats: {type: Map, of: Number},
-    fbmuted: {type: Boolean}
+    fbmuted: {type: Boolean},
+    lastDaily: {type: Date},
+    dailyStreak: {type: Number}
 });
 
 const model = mongoose.model("ProfileModels", profileSchema);

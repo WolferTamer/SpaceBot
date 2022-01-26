@@ -27,12 +27,11 @@ module.exports = async(Discord, client, interaction) => {
         console.log(err);
     }
     
-    let upload = {autoStats: {efficiency:0, cost:0, exp: 0, special: 0}};
-    if(typeof profileData.autoStats === "undefined") {
+    if(typeof profileData.dailyStreak === "undefined" || typeof profileData.lastDaily === "undefined") {
         const response = await profileModel.findOneAndUpdate({
             userID: interaction.member.id
         }, {
-            $set: upload,
+            $set: { dailyStreak: 0, lastDaily: 0 }
         });
     }
 
