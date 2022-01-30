@@ -6,8 +6,8 @@ require('dotenv').config();
 module.exports = async (client, Discord) => {
     var commands = []
     const commandFiles = fs.readdirSync('./commands/').filter(file => file.endsWith('.js'));
-    const guildId = '895168869361152021'
-    const clientId = '895169494933176331'
+    const guildId = process.env.GUILD;
+    const clientId = process.env.CLIENT;
     for(const file of commandFiles) {
         const command = require(`../commands/${file}`);
 
@@ -30,10 +30,7 @@ module.exports = async (client, Discord) => {
             console.log('Started refreshing application commands');
 
             await rest.put(Routes.applicationGuildCommands(clientId, guildId), {body:commands});
-            await rest.put(
-                Routes.applicationCommands(clientId),
-                { body: commands },
-            );
+            await rest.put(Routes.applicationCommands(clientId), {body:commands});
 
             console.log('Successfully reloaded application commands');
         } catch(err) {

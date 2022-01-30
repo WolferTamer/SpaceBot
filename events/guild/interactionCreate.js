@@ -68,6 +68,15 @@ module.exports = async(Discord, client, interaction) => {
 
         try {
             if(command) command.execute(client, interaction, args, Discord, profileData);
+            if(Math.random() >= .97) {
+                const upload = {"items.nLootbox": 1};
+                const response = await profileModel.findOneAndUpdate({
+                    userID: interaction.member.id
+                }, {
+                    $inc: upload
+                });
+                interaction.channel.send("You recieved a random lootbox! Congratulations!")
+            }
         } catch(err) {
             console.log(err)
             console.log("Command did not exist")

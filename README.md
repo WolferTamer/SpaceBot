@@ -11,6 +11,8 @@ SpaceBot is a Discord bot game built using discord.js. It centers around gatheri
 PREFIX = {prefix}
 MONGODB_SRV = {mongo db server access link}
 TOKEN = {discord api token}
+CLIENT = {id of the discord bot client}
+GUILD = {id of the test server}
 ```
 ### Running
 Run the bot using ```node .``` in the top level directory.
