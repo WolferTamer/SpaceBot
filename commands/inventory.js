@@ -6,10 +6,32 @@ module.exports = {
     cooldown: 5,
     aliases: ['inv', 'i'],
     description: "Get a list of all the items in your inventory.",
-    usage: ".inventory",
+    usage: ".inventory `{user}`",
+    options: [
+        {
+            name: "user",
+            description: "The user to get the inventory of. Leave blank to see your inventory.",
+            required: false,
+            type: 6
+        }
+    ],
     async execute(client, message, args, Discord, profileData) {
+        var invUser;
+        var invProfile = profileData;
+        var callUser = message.user;
+        if(typeof args[0] !== "undefined") {
+            invUser = await message.guild.members.fetch(args[0]);
+            try {
+                invProfile = await profileModel.findOne({ userID: invUser.id });
+            } catch (err) {
+                console.log(err);
+            }
+        } else {
+            invUser = message.user;
+        }
+
         var resourceDescription = "";
-        const resources = profileData["resources"];
+        const resources = invProfile["resources"];
         for(let item of resources.keys()) {
             if(typeof resources.get(item) !== "undefined") {
                 const emoji = client.emojis.cache.find(emoji => emoji.name === item);
@@ -22,7 +44,7 @@ module.exports = {
         }
 
         var toolDescription = "";
-        const items = profileData["items"];
+        const items = invProfile["items"];
         for(let item of items.keys()) {
             if(typeof items.get(item) !== "undefined") {
                 //const emoji = client.emojis.cache.find(emoji => emoji.name === items[item][0]);
@@ -59,7 +81,7 @@ module.exports = {
         var changed = false;
 
         collector.on('collect', async interaction => {
-            if(interaction.customId === 'invCycle') {
+            if(interaction.customId === 'invCycle' && interaction.user.id == message.user.id) {
                 if(changed) {
                     interaction.update({embeds: [resourceEmbed]});
                     changed = false;

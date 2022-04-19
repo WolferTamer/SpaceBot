@@ -67,7 +67,7 @@ module.exports = {
             const collector = firstMessage.createMessageComponentCollector({componentType: 'BUTTON', time: 20000});
             collector.on('collect', async interaction => {
 
-                if(firstMessage.editedAt) {
+                if(firstMessage.editedAt || interaction.user.id != message.user.id) {
                     return;
                 }
                 let location;

@@ -118,31 +118,33 @@ module.exports = {
             var resourcePage = 0;
 
             collector.on('collect', async interaction => {
-                if(interaction.customId === "itemCycle") {
-                    if(changed) {
-                        var components = interaction.message.components[0].components;
-                        components[0] = components[0].setDisabled(false);
-                        components[1] = components[1].setDisabled(false);
-                        interaction.update({embeds: [resourceEmbed], components: [new MessageActionRow().addComponents(components)]});
-                        changed = false;
-                    } else {
-                        var components = interaction.message.components[0].components;
-                        components[0] = components[0].setDisabled(true);
-                        components[1] = components[1].setDisabled(true);
-                        interaction.update({embeds: [toolEmbed], components: [new MessageActionRow().addComponents(components)]});
-                        changed = true;
+                if(interaction.user.id == message.user.id) {
+                    if(interaction.customId === "itemCycle") {
+                        if(changed) {
+                            var components = interaction.message.components[0].components;
+                            components[0] = components[0].setDisabled(false);
+                            components[1] = components[1].setDisabled(false);
+                            interaction.update({embeds: [resourceEmbed], components: [new MessageActionRow().addComponents(components)]});
+                            changed = false;
+                        } else {
+                            var components = interaction.message.components[0].components;
+                            components[0] = components[0].setDisabled(true);
+                            components[1] = components[1].setDisabled(true);
+                            interaction.update({embeds: [toolEmbed], components: [new MessageActionRow().addComponents(components)]});
+                            changed = true;
+                        }
+                    } else if (interaction.customId === "itemLeft" && !changed) {
+                        resourcePage--;
+                        resourceEmbed = resourceEmbed
+                        .setTitle('List of resources:')
+                        .setDescription(resourceDescriptions[resourcePage])
+                        interaction.update({embeds: [resourceEmbed]});
+                    } else if (interaction.customId === "itemRight" && !changed) {
+                        resourcePage++;
+                        resourceEmbed = resourceEmbed
+                        .setDescription(resourceDescriptions[resourcePage])
+                        interaction.update({embeds: [resourceEmbed]});
                     }
-                } else if (interaction.customId === "itemLeft" && !changed) {
-                    resourcePage--;
-                    resourceEmbed = resourceEmbed
-                    .setTitle('List of resources:')
-                    .setDescription(resourceDescriptions[resourcePage])
-                    interaction.update({embeds: [resourceEmbed]});
-                } else if (interaction.customId === "itemRight" && !changed) {
-                    resourcePage++;
-                    resourceEmbed = resourceEmbed
-                    .setDescription(resourceDescriptions[resourcePage])
-                    interaction.update({embeds: [resourceEmbed]});
                 }
             });
         }
