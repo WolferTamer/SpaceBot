@@ -39,3 +39,5 @@ Thumbs.db
 .env
 
 node_modules
+
+market_files/

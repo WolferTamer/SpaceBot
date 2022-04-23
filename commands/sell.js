@@ -69,7 +69,7 @@ module.exports = {
         
         var data = {};
         data[`resources.${item.id}`] = -amount;
-        data['coins'] = -price
+        data['coins'] = price
 
         const response = await profileModel.findOneAndUpdate({
             userID: message.member.id
