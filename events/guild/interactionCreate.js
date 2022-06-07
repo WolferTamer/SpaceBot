@@ -18,7 +18,8 @@ module.exports = async(Discord, client, interaction) => {
                 resources: {},
                 items: {},
                 equipped: "",
-                autoStats: {efficiency:0, cost:0, exp: 0, special: 0}
+                autoStats: {efficiency:0, cost:0, exp: 0, special: 0},
+                petList: {}
             });
            profile.save();
            profileData = await profileModel.findOne({ userID: interaction.member.id });
@@ -37,14 +38,23 @@ module.exports = async(Discord, client, interaction) => {
 
     profileData = await profileModel.findOne({ userID: interaction.member.id });
 
-    let options = interaction.options.data;
-    var args = [];
-    for(var i = 0; i < options.length; i++) {
-        args.push(`${options[i].value}`);
-    }
-
     let command = client.commands.get(interaction.commandName);
     if(command) {
+        const commandExtra = require(`../../commands/${interaction.commandName}.js`);
+        if(commandExtra.needExtras) {
+            let options = interaction.options.data;
+            var args = [];
+            for(var i = 0; i < options.length; i++) {
+                args.push(options[i]);
+            }
+        } else {
+            let options = interaction.options.data;
+            var args = [];
+            for(var i = 0; i < options.length; i++) {
+                args.push(`${options[i].value}`);
+            }
+        }
+
         if(!cooldowns.has(interaction.commandName)) {
             cooldowns.set(interaction.commandName, new Discord.Collection());
         }

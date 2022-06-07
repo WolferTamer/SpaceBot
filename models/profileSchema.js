@@ -1,5 +1,7 @@
 const mongoose = require('mongoose');
 
+
+
 const profileSchema = new mongoose.Schema({
     userID: {type: String, require: true, unique: true},
     serverID: {type: String, require: true},
@@ -13,7 +15,15 @@ const profileSchema = new mongoose.Schema({
     autoStats: {type: Map, of: Number},
     fbmuted: {type: Boolean},
     lastDaily: {type: Date},
-    dailyStreak: {type: Number}
+    dailyStreak: {type: Number},
+    equippedPet: {type: String},
+    petList: [
+        {
+            name: String,
+            id: String,
+            level: Number
+        }
+    ]
 });
 
 const model = mongoose.model("ProfileModels", profileSchema);
