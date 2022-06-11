@@ -111,7 +111,7 @@ module.exports = {
     
             const embed = new Discord.MessageEmbed()
                 .setColor('#080885')
-                .setTitle('Your auto gathered:')
+                .setTitle('Your drone returns to the hub, its storage container has been filled. It holds:')
                 .setDescription(description)
                 .setFooter({text:'Today\'s gatherings have been provided by Wolfer & Abby Inc.'});
             message.reply({embeds: [embed]});
@@ -138,7 +138,7 @@ module.exports = {
                     }
                 });
 
-                var description = `Your auto has been set out! It will return in ${hours} hours, ${mins} minutes, ${secs} seconds with ${Math.round(timeComplete/(360000/efflvl))} resources`;
+                var description = `Your gatherer drone takes off from the space hub and shoots into the stars! It will return in ${hours} hours, ${mins} minutes, ${secs} seconds with ${Math.round(timeComplete/(360000/efflvl))} resources`;
                 const embed = new Discord.MessageEmbed()
                     .setColor('#080885')
                     .setTitle('AutoGather')
@@ -163,7 +163,7 @@ module.exports = {
                 var hours = timeComplete/3.6e6 | 0;
                 var mins  = timeComplete%3.6e6 / 6e4 | 0;
                 var secs  = Math.round(timeComplete%6e4 / 1e3);
-                embed = embed.setFooter({text:`Your auto has been set out! It will return in ${hours} hours, ${mins} minutes, ${secs} seconds with ${Math.round(profileData.autoToComplete/(360000/efflvl))} resources`});
+                embed = embed.setFooter({text:`Your drone has already been sent out! It will return in ${hours} hours, ${mins} minutes, ${secs} seconds with ${Math.round(profileData.autoToComplete/(360000/efflvl))} resources`});
             }
             message.reply({embeds: [embed]});
         }

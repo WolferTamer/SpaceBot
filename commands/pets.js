@@ -45,7 +45,6 @@ module.exports = {
             }, {
                 $set: { petList: [], equippedPet: ""}
             });
-            console.log(response)
             profileData = await profileModel.findOne({ userID: user.id });
         }
 

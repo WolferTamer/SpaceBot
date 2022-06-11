@@ -11,7 +11,7 @@
                 "comet" : 1,
                 "planet" : 1
             },
-            "description": "You travel to a nearby meteor and harvest: \n"
+            "description": "Your sensors inform you that there's a meteor with valuable resources soon to crash into a nearby planet. You quickly make your way to it, harvesting as much as you can before it burns up in the atmosphere and you continue on your journey. You found: \n"
         }, {
             "name" : "Asteroid",
             "chance" : 0.5,
@@ -23,7 +23,7 @@
                 "comet" : 1,
                 "planet" : 1
             },
-            "description": "You navigate through the asteroid belt and fetch: \n"
+            "description": "You weave in and out of the debree in this systems asteroid belt. Most are made of worthless stone, but eventually you come across one that may be worth extracting. You land on it and manage to find: \n"
         }, {
             "name" : "Star",
             "chance" : 0.5,
@@ -35,7 +35,7 @@
                 "comet" : 1,
                 "planet" : 1
             },
-            "description": "You withstand the brutal heat of a star to find: \n"
+            "description": "Your ship comes close to a star, the light rays blocked by the shaded visor on your viewing window. You approach as close as you can before turning on the extractors to suck in material. After gathering for a while you check the storage to see: \n"
         }, {
             "name" : "Comet",
             "chance" : 0.5,
@@ -47,7 +47,7 @@
                 "comet" : 1.2,
                 "planet" : 1
             },
-            "description": "You avoid the comet's tail to land on it and gather: \n"
+            "description": "As your ship lays stationary in orbit a comet suddenly whizzes past you. You quickly turn on the thrusters and follow it, careful not to put your ship directly in its trail. Eventually you get your ship moving parallel to it and grab as much as you can. You got: \n"
         }, {
             "name" : "Planet",
             "chance" : 0.5,
@@ -59,7 +59,7 @@
                 "comet" : 1,
                 "planet" : 1.2
             },
-            "description": "You land on a local planet to discover: \n"
+            "description": "You approach the planet. It's barely in the habital zone in this star system but there could be some decent resources to scavenge. You bring the ship down for a landing and step out into the oxegyn rich air. Looking in the area around your ship, you manage to gather: \n"
         }, {
             "name" : "Planet",
             "chance" : 0.05,
@@ -71,7 +71,7 @@
                 "comet" : 1,
                 "planet" : 1.6
             },
-            "description": "You land on a local planet to discover: \n"
+            "description": "You find a planet well in the habital zone of this system, and your sensors do detect faint traces of life. You can tell that most of this planet is covered in water, giving you hope that you might find some alien lifeforms. You land on an island and search it, finding: \n"
         }
     ]
 }
