@@ -63,7 +63,7 @@ module.exports = {
                 if(pet != null) {
                     let description = pet.getDescription()
                     var embed = new Discord.MessageEmbed()
-                    .setColor('#080885')
+                    .setColor('#2228bf')
                     .setTitle(`${petStats.name} (lvl ${petStats.level} ${petStats.id}):`)
                     .setDescription(description)
                     .setFooter({text:'Pets'});
@@ -86,7 +86,7 @@ module.exports = {
                     description += `${list[i].name}: level ${list[i].level} ${list[i].id}\n`
                 }
                 var embed = new Discord.MessageEmbed()
-                .setColor('#080885')
+                .setColor('#2228bf')
                 .setTitle(`Pets:`)
                 .setDescription(description)
                 .setFooter({text:'Cool'});

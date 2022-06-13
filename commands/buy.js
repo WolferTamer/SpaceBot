@@ -6,6 +6,7 @@ module.exports = {
     cooldown: 5,
     description: "Buy an item on the market",
     usage: ".buy `[item number]` `{amount}`",
+    category: "Economy",
     options: [
         {
             name: "number",

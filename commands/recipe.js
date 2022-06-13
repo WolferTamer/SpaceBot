@@ -28,7 +28,7 @@ module.exports = {
                 description+=item.name + ": " + tool.recipe[key] + "\n";
             }
             const embed = new Discord.MessageEmbed()
-            .setColor('#080885')
+            .setColor('#2228bf')
             .setTitle('Recipe for '+ tool.name + ':')
             .setDescription(description)
             .setFooter({text:'Today\'s recipe has been provided by Wolfer & Abby Inc.'});

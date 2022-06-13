@@ -95,7 +95,7 @@ module.exports = {
         });
 
         const embed = new Discord.MessageEmbed()
-            .setColor('#080885')
+            .setColor('#2228bf')
             .setTitle(`Your lootboxes gave you ${totalAmount} resources:`)
             .setDescription(description)
         interaction.reply({ embeds: [embed] });

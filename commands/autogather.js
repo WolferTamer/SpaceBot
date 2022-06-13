@@ -9,6 +9,7 @@ module.exports = {
     aliases: ['ag'],
     description: "Automatically gather items over time",
     usage: ".gather {ac} \n`(location choice)`",
+    category: "Gathering",
     options: [
         {
             name: "amount",
@@ -110,7 +111,7 @@ module.exports = {
             });
     
             const embed = new Discord.MessageEmbed()
-                .setColor('#080885')
+                .setColor('#49bf49')
                 .setTitle('Your drone returns to the hub, its storage container has been filled. It holds:')
                 .setDescription(description)
                 .setFooter({text:'Today\'s gatherings have been provided by Wolfer & Abby Inc.'});
@@ -140,7 +141,7 @@ module.exports = {
 
                 var description = `Your gatherer drone takes off from the space hub and shoots into the stars! It will return in ${hours} hours, ${mins} minutes, ${secs} seconds with ${Math.round(timeComplete/(360000/efflvl))} resources`;
                 const embed = new Discord.MessageEmbed()
-                    .setColor('#080885')
+                    .setColor('#2228bf')
                     .setTitle('AutoGather')
                     .setDescription(description)
                     .setFooter({text:'Today\'s gatherings have been provided by Wolfer & Abby Inc.'});
@@ -154,7 +155,7 @@ module.exports = {
             Special: \`LVL ${speciallvl} | XP ${profileData.autoStats.get("special")-specialtot}/${specialnext}\` ${0.5+0.5*speciallvl}% chance for a special item`;
             
             var embed = new Discord.MessageEmbed()
-                .setColor('#080885')
+                .setColor('#bf0f0f')
                 .setTitle('AutoGather')
                 .setDescription(description)
             if(profileData.autoToComplete !=0) {

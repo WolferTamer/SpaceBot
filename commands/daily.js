@@ -6,6 +6,7 @@ module.exports = {
     aliases: ['d'],
     description: "Claim your daily reward",
     usage: ".daily",
+    category: "Misc",
     async execute(client, interaction, args, Discord, profileData) {
         const temp = new Date();
         const d = new Date(temp.getFullYear(), temp.getMonth(), temp.getDate(), 0, 0, 0, 0);
@@ -23,10 +24,17 @@ module.exports = {
                 $inc: upload
             });
 
+            var diff = (d.getTime()+86400000) - temp.getTime();
+            diff = Math.abs(diff);
+            var hours = diff/3.6e6 | 0;
+            var mins  = diff%3.6e6 / 6e4 | 0;
+            var secs  = Math.round(diff%6e4 / 1e3);
+
             const embed = new Discord.MessageEmbed()
-            .setColor([235,125,52])
-            .setTitle('Daily:')
-            .setDescription(`You have collected your daily! You gained ${amount} coins and 1 lootbox!`);
+            .setColor("#2228bf")
+            .setTitle(':tada: Daily :tada:')
+            .setDescription(`You have collected your daily! You gained ${amount} coins and 1 lootbox! :partying_face:`)
+            .setFooter(`You can claim your next daily in ${z(hours)}:${z(mins)}:${z(secs)}`)
             interaction.reply({embeds: [embed]});
         } else {
             function z(n) {

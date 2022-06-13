@@ -42,7 +42,7 @@ module.exports = {
             var replyEmbed = new Discord.MessageEmbed()
                 .setTitle(`Thank you for your help!`)
                 .setDescription("This message has been sent off to our testers and developers who will try and get to it as quickly as possible. They may contact you for more info if necessary.")
-                .setColor([47,158,66])
+                .setColor('#2228bf')
 
             interaction.reply({embeds: [replyEmbed]})
         } else {

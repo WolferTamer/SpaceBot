@@ -28,7 +28,7 @@ module.exports = {
             if(typeof tool !== "undefined") {
                 var description = tool.description;
                 const embed = new Discord.MessageEmbed()
-                .setColor('#080885')
+                .setColor('#2228bf')
                 .setTitle('Info for '+ tool.name + ':')
                 .setDescription(description)
                 .setFooter({text:'Today\'s item description has been provided by Wolfer & Abby Inc.'});
@@ -100,12 +100,12 @@ module.exports = {
                 ]
             );
             const toolEmbed = new Discord.MessageEmbed()
-                .setColor('#080885')
+                .setColor('#2228bf')
                 .setTitle('List of tools:')
                 .setDescription(toolDescription)
                 .setFooter({text:'React with 🔄 to cycle between sections.'}); 
             var resourceEmbed = new Discord.MessageEmbed()
-                .setColor('#080885')
+                .setColor('#2228bf')
                 .setTitle('List of resources:')
                 .setDescription(resourceDescriptions[0])
                 .setFooter({text:'Use shift left/right to switch between rarities.'});
@@ -138,11 +138,13 @@ module.exports = {
                         resourceEmbed = resourceEmbed
                         .setTitle('List of resources:')
                         .setDescription(resourceDescriptions[resourcePage])
+                        .setColor('#2228bf')
                         interaction.update({embeds: [resourceEmbed]});
                     } else if (interaction.customId === "itemRight" && !changed) {
                         resourcePage++;
                         resourceEmbed = resourceEmbed
                         .setDescription(resourceDescriptions[resourcePage])
+                        .setColor('#2228bf')
                         interaction.update({embeds: [resourceEmbed]});
                     }
                 }

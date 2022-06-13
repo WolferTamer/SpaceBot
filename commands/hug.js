@@ -27,7 +27,7 @@ module.exports = {
                 case 3: catgif = "https://c.tenor.com/BeBmpmSMjDoAAAAM/cat-hug.gif"; break;
             }
             const embed = new Discord.MessageEmbed()
-            .setColor('#e650bb')
+            .setColor('#2228bf')
             .setTitle(`Hey ${person.displayName}, ${message.member.displayName} is giving you a big hug!`)
             .setImage(catgif)
             .setFooter({text:'Today\'s hugs have been provided by Wolfer & Abby Inc.'});

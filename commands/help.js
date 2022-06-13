@@ -48,7 +48,7 @@ module.exports = {
         }
 
         const embed = new Discord.MessageEmbed()
-            .setColor('#eb7d34')
+            .setColor('#2228bf')
             .setTitle(title)
             .setDescription(description)
             .setFooter({text:'[] = required argument, {} = optional argument, () = additional dialogue'});

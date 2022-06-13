@@ -10,6 +10,7 @@ module.exports = {
     cooldown: 15,
     description: "Craft an item using resources gotten from gathering.",
     usage: ".craft `[item id]`",
+    category: "Inventory",
     options: [
         {
             name: "item",

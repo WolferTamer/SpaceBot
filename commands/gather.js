@@ -57,7 +57,7 @@ module.exports = {
                 ]
             );
         const embed = new Discord.MessageEmbed()
-        .setColor('#080885')
+        .setColor('#2228bf')
         .setTitle('Gather Options:')
         .setDescription(descriptionOne)
         .setFooter({text:'Today\'s options have been provided by Wolfer & Abby Inc.'});
@@ -140,7 +140,7 @@ module.exports = {
                 });
 
                 const embed = new Discord.MessageEmbed()
-                .setColor('#080885')
+                .setColor('#49bf49')
                 .setTitle('You gathered:')
                 .setDescription(description)
                 .setImage('https://assets.newatlas.com/dims4/default/b89cd58/2147483647/strip/true/crop/925x617+0+232/resize/1200x800!/quality/90/?url=http%3A%2F%2Fnewatlas-brightspot.s3.amazonaws.com%2Farchive%2Fchandra-nasa-space-telescope-anniversary-4.jpg')
@@ -215,7 +215,7 @@ module.exports = {
             });
 
             const embed = new Discord.MessageEmbed()
-            .setColor('#080885')
+            .setColor('#49bf49')
             .setTitle('You gathered:')
             .setDescription(description)
             .setImage('https://assets.newatlas.com/dims4/default/b89cd58/2147483647/strip/true/crop/925x617+0+232/resize/1200x800!/quality/90/?url=http%3A%2F%2Fnewatlas-brightspot.s3.amazonaws.com%2Farchive%2Fchandra-nasa-space-telescope-anniversary-4.jpg')

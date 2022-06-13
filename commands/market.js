@@ -22,7 +22,7 @@ module.exports = {
         }
         
         const resourceEmbed = new Discord.MessageEmbed()
-            .setColor([235,125,52])
+            .setColor("#2228bf")
             .setTitle('Marketplace:')
             .setDescription(description)
         var sentMessage = await message.reply({embeds: [resourceEmbed]});

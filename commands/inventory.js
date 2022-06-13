@@ -1,5 +1,8 @@
 const { MessageActionRow, MessageButton } = require('discord.js');
+const fs = require('fs');
 const profileModel = require('../models/profileSchema');
+const resourceJSON = fs.readFileSync('./resources.json');
+const resourceData = JSON.parse(resourceJSON);
 
 module.exports = {
     name: "inventory",
@@ -30,17 +33,30 @@ module.exports = {
             invUser = message.user;
         }
 
-        var resourceDescription = "";
         const resources = invProfile["resources"];
+        var resourceArray = {}
         for(let item of resources.keys()) {
-            if(typeof resources.get(item) !== "undefined") {
+            const resource = resourceData["resources"].find(obj => obj.id === item)
+            if(typeof resourceArray[resource.category] !== "undefined") {
+                resourceArray[resource.category].push(item)
+            } else {
+                resourceArray[resource.category] = [item]
+            }
+        }
+
+        var resourceDescription = "";
+        for(let key of Object.keys(resourceArray)) {
+            resourceDescription += `**${key.charAt(0).toUpperCase() + key.slice(1)}:** \n`
+            for(let item of resourceArray[key]) {
                 const emoji = client.emojis.cache.find(emoji => emoji.name === item);
-                if(typeof emoji !== "undefined") {
-                    resourceDescription += `${resources.get(item)}x ${emoji} \n`;
+                resourceDescription += `\`${resources.get(item)}x\` `
+                if(typeof emoji === "undefined") {
+                    resourceDescription += `${item}, `
                 } else {
-                    resourceDescription += `${resources.get(item)}x ${item} \n`;
+                    resourceDescription += `${emoji}, `
                 }
             }
+            resourceDescription += "\n\n"
         }
 
         var toolDescription = "";
@@ -66,7 +82,7 @@ module.exports = {
                     .setStyle('PRIMARY')
             );
         const resourceEmbed = new Discord.MessageEmbed()
-            .setColor([235,125,52])
+            .setColor('#2228bf')
             .setTitle('Resources:')
             .setDescription(resourceDescription)
         const toolEmbed = new Discord.MessageEmbed()
